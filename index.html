@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1 id="welcome"></h1>
+    <p id="date"></p>
+    <button id="start" onclick="check()">Start Quiz</button>
+    <p id="congrats"></p>
+    <script>
+
+        var name = prompt("What is your name?");
+        while (name == "" || name == null){
+            name = prompt("Enter a name.");
+        }
+        var d = new Date();
+        var x, y;
+        x = randomnum();
+        y = randomnum();
+        z = randomop();
+
+        document.getElementById("welcome").innerHTML = "Welcome to the Simple Math Quiz, " + name + "!";
+        document.getElementById("date").innerHTML = "Today's Date and Time: " + d;
+
+        function randomnum(){
+            return Math.round(Math.random()*10);
+        }
+
+        function randomop(){
+            var randomop = Math.round((Math.random()*10)/2);
+            var op;
+
+            if (randomop <= 1){
+                op = "+";
+            } else if (randomop <= 2 && randomop > 1){
+                op = "-"
+            } else if (randomop <= 3 && randomop > 2){
+                op = "*"
+            } else if (randomop <= 4 && randomop > 3){
+                op = "/"
+            } else if (randomop <= 5 && randomop > 4){
+                op = "%"
+            }
+
+            return op;
+        }
+
+        function calculate(){
+            var e;
+            if (z == "+"){
+                e = x + y;
+            } else if (z == "-"){
+                e = x - y;
+            } else if (z == "*"){
+                e = x * y;
+            } else if (z == "/"){
+                e = x / y;
+            } else if (z == "%"){
+                e = x % y;
+            }
+            return e;
+        }
+        
+        function check(){
+            var w = prompt("Hi "+name+", let's solve a math problem.\nWhat is " + x + " " + z + " " + y + "?\nEnter your answer:");
+            if (isNaN(w) == true || w == null){
+                alert("Please input an integer.");
+            }
+
+            var n = calculate();
+            if (n % 1 != 0){
+                var g = n.toFixed(2);
+                if (g == w){
+                    document.getElementById("congrats").innerHTML = "Congratulations, " + name + "! That's correct.";
+                } else {
+                    document.getElementById("congrats").innerHTML = "That's wrong. The correct answer was " + g + ".";
+                }
+            } else {
+                if (n == w){
+                    document.getElementById("congrats").innerHTML = "Congratulations, " + name + "! That's correct.";
+                } else {
+                    document.getElementById("congrats").innerHTML = "That's wrong. The correct answer was " + n + ".";
+                }
+            }
+        }
+    </script>
+</body>
+</html>
